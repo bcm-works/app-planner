@@ -6,6 +6,9 @@ A prototype personal planner app like Sunsama.
 
 - [.claude](.claude/) - Project specific config for [Claude Code](https://claude.com/product/claude-code).
 - [.zed](.zed/) - Customised [Zed Editor](https://zed.dev/) project configuration.
+- [docs/adrs](docs/adrs/) - Architecture Decision Record documents.
+- [docs/prompts](docs/prompts/) - Logs of AI prompts and results.
+- [docs/AI-USE.md](docs/AI-USE.md) - Policy for use of AI Code Generation tools.
 - [src/api](src/api/) - [Deno](https://deno.com/) backend and Deno KV integration.
 - [src/app](src/app/) - [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
 - [src/server](src/server/) - [Deno](https://deno.com/) server and app routing.
