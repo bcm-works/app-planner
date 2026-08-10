@@ -1,6 +1,6 @@
 import { assertEquals, assertStringIncludes } from "@std/assert";
 import { kvSaveTask, setKv } from "@/api/kv.ts";
-import { app } from "@/server/mod.tsx";
+import { app } from "@/server.tsx";
 import type { Task } from "@/api/types.ts";
 
 const kv = await Deno.openKv(":memory:");
