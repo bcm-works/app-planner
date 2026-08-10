@@ -36,7 +36,7 @@
 			"Bash(deno task check)",
 			"Bash(deno task serve)",
 			"Bash(deno task test)",
-			"Bash(deno task test 2>&1)",
+			"Bash(deno task test *)",
 			"Bash(deno test *)",
 			"Bash(deno info *)"
 		],
