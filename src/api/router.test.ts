@@ -28,7 +28,7 @@ function makeTask(overrides: Partial<Task> = {}): Task {
 // --- /health ---
 
 Deno.test("GET /health returns 200 with status ok", opts, async () => {
-  const res = await route(new Request("http://localhost/health"));
+  const res = await route(new Request("http://localhost/api/health"));
   assertEquals(res.status, 200);
   const body = await res.json();
   assertEquals(body.status, "ok");
@@ -37,21 +37,21 @@ Deno.test("GET /health returns 200 with status ok", opts, async () => {
 // --- unknown routes ---
 
 Deno.test("GET /unknown returns 404", opts, async () => {
-  const res = await route(new Request("http://localhost/unknown"));
+  const res = await route(new Request("http://localhost/api/unknown"));
   assertEquals(res.status, 404);
   const body = await res.json();
   assertExists(body.error);
 });
 
 Deno.test("GET /tasks/id/extra returns 404", opts, async () => {
-  const res = await route(new Request("http://localhost/tasks/abc/extra"));
+  const res = await route(new Request("http://localhost/api/tasks/abc/extra"));
   assertEquals(res.status, 404);
 });
 
 // --- GET /tasks ---
 
 Deno.test("GET /tasks returns 200 with array", opts, async () => {
-  const res = await route(new Request("http://localhost/tasks"));
+  const res = await route(new Request("http://localhost/api/tasks"));
   assertEquals(res.status, 200);
   const body = await res.json();
   assertEquals(Array.isArray(body), true);
@@ -61,7 +61,7 @@ Deno.test("GET /tasks returns 200 with array", opts, async () => {
 
 Deno.test("POST /tasks creates a task and returns 201", opts, async () => {
   const res = await route(
-    new Request("http://localhost/tasks", {
+    new Request("http://localhost/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: "Via router" })
@@ -74,14 +74,14 @@ Deno.test("POST /tasks creates a task and returns 201", opts, async () => {
 });
 
 Deno.test("PUT /tasks returns 405 method not allowed", opts, async () => {
-  const res = await route(new Request("http://localhost/tasks", { method: "PUT" }));
+  const res = await route(new Request("http://localhost/api/tasks", { method: "PUT" }));
   assertEquals(res.status, 405);
   const body = await res.json();
   assertExists(body.error);
 });
 
 Deno.test("DELETE /tasks returns 405 method not allowed", opts, async () => {
-  const res = await route(new Request("http://localhost/tasks", { method: "DELETE" }));
+  const res = await route(new Request("http://localhost/api/tasks", { method: "DELETE" }));
   assertEquals(res.status, 405);
 });
 
@@ -91,14 +91,14 @@ Deno.test("GET /tasks/:id returns task", opts, async () => {
   const task = makeTask();
   await kvSaveTask(task);
 
-  const res = await route(new Request(`http://localhost/tasks/${task.id}`));
+  const res = await route(new Request(`http://localhost/api/tasks/${task.id}`));
   assertEquals(res.status, 200);
   const body = await res.json();
   assertEquals(body.id, task.id);
 });
 
 Deno.test("GET /tasks/:id returns 404 for unknown id", opts, async () => {
-  const res = await route(new Request(`http://localhost/tasks/${crypto.randomUUID()}`));
+  const res = await route(new Request(`http://localhost/api/tasks/${crypto.randomUUID()}`));
   assertEquals(res.status, 404);
 });
 
@@ -109,7 +109,7 @@ Deno.test("PATCH /tasks/:id updates task", opts, async () => {
   await kvSaveTask(task);
 
   const res = await route(
-    new Request(`http://localhost/tasks/${task.id}`, {
+    new Request(`http://localhost/api/tasks/${task.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: "Patched via router" })
@@ -126,7 +126,7 @@ Deno.test("DELETE /tasks/:id soft-deletes task", opts, async () => {
   const task = makeTask();
   await kvSaveTask(task);
 
-  const res = await route(new Request(`http://localhost/tasks/${task.id}`, { method: "DELETE" }));
+  const res = await route(new Request(`http://localhost/api/tasks/${task.id}`, { method: "DELETE" }));
   assertEquals(res.status, 200);
   const body = await res.json();
   assertEquals(body.success, true);
@@ -137,7 +137,7 @@ Deno.test("POST /tasks/:id returns 405 method not allowed", opts, async () => {
   await kvSaveTask(task);
 
   const res = await route(
-    new Request(`http://localhost/tasks/${task.id}`, {
+    new Request(`http://localhost/api/tasks/${task.id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: "x" })
@@ -151,7 +151,7 @@ Deno.test("PUT /tasks/:id returns 405 method not allowed", opts, async () => {
   await kvSaveTask(task);
 
   const res = await route(
-    new Request(`http://localhost/tasks/${task.id}`, {
+    new Request(`http://localhost/api/tasks/${task.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: "x" })

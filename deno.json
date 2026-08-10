@@ -35,7 +35,7 @@
     },
     "serve": {
       "description": "Run the API server locally.",
-      "command": "deno run --unstable-kv src/api/mod.ts"
+      "command": "deno run --allow-all --unstable-kv src/api/mod.ts"
     },
     "list": {
       "description": "List all available commands.",
