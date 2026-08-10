@@ -11,7 +11,7 @@ A prototype personal planner app like Sunsama.
 - [docs/AI-USE.md](docs/AI-USE.md) - Policy for use of AI Code Generation tools.
 - [src/api](src/api/) - [Deno](https://deno.com/) backend and Deno KV integration.
 - [src/app](src/app/) - [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
-- [src/server](src/server/) - [Deno](https://deno.com/) server and app routing.
+- [src/server.tsx](src/server/server.tsx) - [Deno](https://deno.com/) server Deno Deploy entrypoint.
 
 ## Initial Setup
 

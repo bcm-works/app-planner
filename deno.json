@@ -10,7 +10,8 @@
     "build": "",
     "runtime": {
       "mode": "dynamic",
-      "entrypoint": "src/server/mod.tsx"
+      "entrypoint": "src/server.tsx",
+      "args": ["--unstable-kv"]
     }
   },
   "imports": {
@@ -48,7 +49,7 @@
     },
     "serve": {
       "description": "Start the web server.",
-      "command": "deno run --allow-all --env-file=.env --unstable-kv src/server/mod.tsx"
+      "command": "deno run --allow-all --env-file=.env --unstable-kv src/server.tsx"
     },
     "list": {
       "description": "List all available commands.",
@@ -97,6 +98,11 @@
     "deny": []
   },
   "exclude": [
-    "node_modules/"
+    ".claude/",
+    ".zed/",
+    "docs/",
+    "node_modules/",
+    "coverage/",
+    ".env"
   ]
 }

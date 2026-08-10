@@ -7,7 +7,7 @@ import AppWrapper from "@/app/components/AppWrapper.tsx";
 import HomePage from "@/app/pages/Home.tsx";
 import TasksPage from "@/app/pages/Tasks.tsx";
 
-const STATIC_DIR = new URL("../app/static", import.meta.url).pathname;
+const STATIC_DIR = new URL("app/static", import.meta.url).pathname;
 
 const EDITABLE_STATUSES = new Set<string>(["pending", "in_progress", "completed"]);
 
