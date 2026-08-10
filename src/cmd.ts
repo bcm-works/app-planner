@@ -5,5 +5,5 @@ const builder = new Builder({ serverEntry: "./src/server.tsx" });
 if (Deno.args.includes("build")) {
   await builder.build();
 } else {
-  await builder.listen(() => import("./src/server.tsx"));
+  await builder.listen(() => import("./server.tsx"));
 }

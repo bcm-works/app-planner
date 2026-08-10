@@ -30,7 +30,7 @@
     },
     "build": {
       "description": "Build optimised assets for production.",
-      "command": "deno run --allow-all dev.ts build",
+      "command": "deno run --allow-all src/cmd.ts build",
       "dependencies": ["install"]
     },
     "update": {
