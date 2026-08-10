@@ -23,6 +23,10 @@
 		"allow": [
 			"Fetch(https://docs.github.com/*)",
 			"Fetch(https://docs.deno.com/*)",
+			"Fetch(https://usefresh.dev/*)",
+			"Fetch(https://raw.githubusercontent.com/*)",
+			"Fetch(https://www.npmjs.com/*)",
+			"Fetch(https://jsr.io/*)",
 			"Bash(cat*)",
 			"Bash(grep*)",
 			"Bash(head*)",
@@ -32,17 +36,21 @@
 			"Bash(git status*)",
 			"Bash(git log*)",
 			"Bash(deno task list)",
-			"Bash(deno task build)",
+			"Bash(deno task install)",
 			"Bash(deno task check)",
 			"Bash(deno task serve)",
 			"Bash(deno task test)",
 			"Bash(deno task test *)",
 			"Bash(deno test *)",
-			"Bash(deno info *)"
+			"Bash(deno info *)",
+			"Bash(deno install *)",
+			"Bash(deno cache *)"
 		],
 		"deny": [
 			"Read(.env)",
 			"Read(docs/AI-USE.md)",
+			"Bash(deno deploy)",
+			"Bash(deno deploy*)",
 			"Bash(git commit*)",
 			"Bash(git push*)"
 		]
