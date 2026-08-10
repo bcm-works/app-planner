@@ -9,8 +9,6 @@ create a Deno Typescript backend API in `src/api` for a Sunsama like system with
 
 ## Result
 
----
-
 **`src/api/`**
 
 | File | Role |
