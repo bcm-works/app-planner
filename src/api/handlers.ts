@@ -12,7 +12,7 @@ function err(message: string, status: number): Response {
   return json({ error: message }, status);
 }
 
-// Resolve a task that isn't soft-deleted, or return null.
+// Return a task that isn't soft-deleted, or return null.
 async function resolveActive(id: string): Promise<Task | null> {
   const task = await kvGetTask(id);
   return task && task.status !== "deleted" ? task : null;
@@ -92,7 +92,7 @@ export async function handleUpdateTask(req: Request, id: string): Promise<Respon
   return json(updated);
 }
 
-// Soft-delete by setting status=deleted.
+// Soft-delete by setting the status to 'deleted'.
 export async function handleDeleteTask(_req: Request, id: string): Promise<Response> {
   const existing = await resolveActive(id);
   if (!existing) return err("Task not found", 404);

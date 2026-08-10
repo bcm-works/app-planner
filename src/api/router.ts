@@ -1,7 +1,7 @@
 import { handleCreateTask, handleDeleteTask, handleGetTask, handleListTasks, handleUpdateTask } from "./handlers.ts";
 
-// URLPattern is available as a global in Deno and Deno Deploy.
 const TASKS_COLLECTION = new URLPattern({ pathname: "/api/tasks" });
+
 const TASKS_ITEM = new URLPattern({ pathname: "/api/tasks/:id" });
 
 function methodNotAllowed(): Response {

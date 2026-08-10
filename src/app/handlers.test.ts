@@ -26,8 +26,6 @@ function makeTask(overrides: Partial<Task> = {}): Task {
   };
 }
 
-// --- Home page ---
-
 Deno.test("GET / renders home page content", opts, async () => {
   const res = await handler(new Request("http://localhost/"));
   assertEquals(res.status, 200);
@@ -42,8 +40,6 @@ Deno.test("GET / includes navigation links", opts, async () => {
   assertStringIncludes(html, 'href="/"');
   assertStringIncludes(html, 'href="/tasks"');
 });
-
-// --- Tasks page ---
 
 Deno.test("GET /tasks renders tasks heading", opts, async () => {
   const res = await handler(new Request("http://localhost/tasks"));

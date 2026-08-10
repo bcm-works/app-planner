@@ -8,8 +8,6 @@ setKv(kv);
 const handler = app.handler();
 const opts = { sanitizeResources: false, sanitizeOps: false };
 
-// --- API routing ---
-
 Deno.test("GET /api/health is routed to API handler", opts, async () => {
   const res = await handler(new Request("http://localhost/api/health"));
   assertEquals(res.status, 200);
@@ -49,8 +47,6 @@ Deno.test("POST /api/tasks creates task and returns 201", opts, async () => {
   assertExists(body.id);
   assertEquals(body.title, "Middleware route test");
 });
-
-// --- App routing ---
 
 Deno.test("GET / returns HTML response", opts, async () => {
   const res = await handler(new Request("http://localhost/"));
