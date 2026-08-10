@@ -15,8 +15,9 @@ A prototype personal planner app like Sunsama.
 
 ## Initial Setup
 
-1. Install the latest stable version of [Deno](https://deno.com/)
-2. Run `deno task setup` from a terminal in this directory
+1. Install the latest stable version of [Deno](https://deno.com/).
+2. Run `deno task setup` from a terminal in this directory.
+3. Update the Git Ignored file named `.env` with the relevant Deno Deploy database ID and access token.
 
 ## Commands
 

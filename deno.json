@@ -35,7 +35,7 @@
     },
     "setup": {
       "description": "Initial environment setup.",
-      "command": "deno task install"
+      "command": "deno task install && [ ! -f .env ] && cp .sample.env .env"
     },
     "check": {
       "description": "Run Deno code check tools.",
@@ -48,7 +48,7 @@
     },
     "serve": {
       "description": "Start the web server.",
-      "command": "deno run --allow-all --unstable-kv src/server/mod.tsx"
+      "command": "deno run --allow-all --env-file=.env --unstable-kv src/server/mod.tsx"
     },
     "list": {
       "description": "List all available commands.",
