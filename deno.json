@@ -42,12 +42,12 @@
       "command": "deno lint && deno fmt && deno check"
     },
     "test": {
-      "description": "Run all Deno Test scripts in the 'src' directory.",
+      "description": "Run all tests and show test coverage",
       "command": "deno test --quiet --allow-all --unstable-kv --clean --coverage=coverage --coverage-threshold=85 src",
       "dependencies": ["install"]
     },
     "serve": {
-      "description": "Run the web server.",
+      "description": "Start the web server.",
       "command": "deno run --allow-all --unstable-kv src/server/mod.tsx"
     },
     "list": {

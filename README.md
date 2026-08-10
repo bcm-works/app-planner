@@ -20,7 +20,7 @@ A prototype personal planner app like Sunsama.
 The main commands are:
 
 - `deno task setup` - Initial environment setup.
-- `deno task serve` - Run the web server.
-- `deno task test` - Run tests.
+- `deno task serve` - Start the web server.
+- `deno task test` - Run all tests and show test coverage.
 - `deno task check` - Run Deno code check tools.
 - `deno task list` - List all commands.
