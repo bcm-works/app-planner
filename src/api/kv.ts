@@ -11,17 +11,17 @@ export function setKv(kv: Deno.Kv): void {
 
 async function db(): Promise<Deno.Kv> {
   if (!_kv) {
-  	if (_envDenoKvDatabaseId && _envDenoKvAccessToken) {
-   		console.log("Connecting to remote Deno KV instance");
+    if (_envDenoKvDatabaseId && _envDenoKvAccessToken) {
+      console.log("Connecting to remote Deno KV instance");
 
-  		_kv = await Deno.openKv(
- 				`https://api.deno.com/v2/databases/${_envDenoKvDatabaseId}/connect`
-  		);
-  	} else {
-   		console.log("Using built-in local Deno KV instance");
+      _kv = await Deno.openKv(
+        `https://api.deno.com/v2/databases/${_envDenoKvDatabaseId}/connect`
+      );
+    } else {
+      console.log("Using built-in local Deno KV instance");
 
-  		_kv = await Deno.openKv();
-  	}
+      _kv = await Deno.openKv();
+    }
   }
 
   return _kv;
