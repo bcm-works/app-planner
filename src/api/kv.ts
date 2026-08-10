@@ -2,6 +2,11 @@ import type { Task } from "./types.ts";
 
 let _kv: Deno.Kv | null = null;
 
+// Allows tests to inject an in-memory KV instance.
+export function setKv(kv: Deno.Kv): void {
+  _kv = kv;
+}
+
 async function db(): Promise<Deno.Kv> {
   if (!_kv) _kv = await Deno.openKv();
   return _kv;
