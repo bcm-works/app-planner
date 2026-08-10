@@ -34,8 +34,9 @@
 			"Bash(deno task list)",
 			"Bash(deno task build)",
 			"Bash(deno task check)",
-			"Bash(deno task start)",
+			"Bash(deno task serve)",
 			"Bash(deno task test)",
+			"Bash(deno task test 2>&1)",
 			"Bash(deno test *)",
 			"Bash(deno info *)"
 		],
