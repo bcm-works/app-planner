@@ -47,7 +47,7 @@
       "dependencies": ["install"]
     },
     "serve": {
-      "description": "Run the server locally.",
+      "description": "Run the web server.",
       "command": "deno run --allow-all --unstable-kv src/server/mod.tsx"
     },
     "list": {
