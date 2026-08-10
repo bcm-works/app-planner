@@ -23,6 +23,10 @@
 			"description": "Run all Deno Test scripts in the 'src' directory.",
 			"command": "deno test --quiet --allow-all src"
 		},
+		"serve": {
+			"description": "Run the API server locally.",
+			"command": "deno run --unstable-kv src/api/mod.ts"
+		},
 		"list": {
 			"description": "List all available commands.",
 			"command": "deno task"
