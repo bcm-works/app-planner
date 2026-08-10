@@ -3,6 +3,16 @@
   "preferPackageJson": false,
   "minimumDependencyAge": 14,
   "lock": true,
+  "deploy": {
+    "org": "murty",
+    "app": "app-personal-planner",
+    "install": "deno task install",
+    "build": "",
+    "runtime": {
+      "mode": "dynamic",
+      "entrypoint": "src/api/mod.ts"
+    }
+  },
   "imports": {
     "@/": "./src/",
     "@std/assert": "jsr:@std/assert@^1.0.19"
@@ -85,3 +95,4 @@
     "node_modules/"
   ]
 }
+
