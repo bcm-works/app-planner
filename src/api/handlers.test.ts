@@ -1,11 +1,5 @@
 import { assertEquals, assertExists } from "@std/assert";
-import {
-  handleCreateTask,
-  handleDeleteTask,
-  handleGetTask,
-  handleListTasks,
-  handleUpdateTask
-} from "./handlers.ts";
+import { handleCreateTask, handleDeleteTask, handleGetTask, handleListTasks, handleUpdateTask } from "./handlers.ts";
 import { kvSaveTask, setKv } from "./kv.ts";
 
 const kv = await Deno.openKv(":memory:");
