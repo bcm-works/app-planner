@@ -6,9 +6,9 @@ A prototype personal planner app like Sunsama.
 
 - [.claude](.claude/) - Project specific config for [Claude Code](https://claude.com/product/claude-code).
 - [.zed](.zed/) - Customised [Zed Editor](https://zed.dev/) project configuration.
-- [src/api](src/api/): [Deno](https://deno.com/) backend and Deno KV integration.
-- [src/app](src/app/): [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
-- [src/server](src/server/): [Deno](https://deno.com/) server and app routing.
+- [src/api](src/api/) - [Deno](https://deno.com/) backend and Deno KV integration.
+- [src/app](src/app/) - [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
+- [src/server](src/server/) - [Deno](https://deno.com/) server and app routing.
 
 ## Initial Setup
 
@@ -17,10 +17,10 @@ A prototype personal planner app like Sunsama.
 
 ## Commands
 
-The main commands here are:
+The main commands are:
 
-- `deno task setup`: Initial environment setup.
-- `deno task serve`: Run the web server.
-- `deno task test`: Run tests.
-- `deno task check`: Run Deno code check tools.
-- `deno task list`: List all commands.
+- `deno task setup` - Initial environment setup.
+- `deno task serve` - Run the web server.
+- `deno task test` - Run tests.
+- `deno task check` - Run Deno code check tools.
+- `deno task list` - List all commands.
