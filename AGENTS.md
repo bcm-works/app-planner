@@ -4,11 +4,8 @@ This repository contains a personal planner app.
 
 ## Tech Stack
 
-- **Code:** Deno, TypeScript
-
-## Structure
-
-- [src](src/) - Source code.
+- **src/api** - Go
+- **src/app** - Deno Fresh and TypeScript
 
 ## Required Tools
 
@@ -17,13 +14,17 @@ If any of the below CLI commands aren't available, stop processing and explain t
 - `bash`
 - `git`
 - `deno`
+- `go`
 
 ## Hard Rules
 
 - If `sudo` is needed, do not invoke it, print the command and explain why instead.
-- Always check Deno code changes using the custom `deno task check` command, which includes Deno lint, check and fmt.
-- Stick to standard Deno built-in features as much as possible, and if a third-party dependency is required, use the required JSR package(s) and add them to the `imports` list in `deno.json`.
-- If a Node package is required, add it to the `imports` list in `deno.json` with the value containing the standard `node:` prefix.
+- Rules for Deno or TypeScript code (`*.ts`):
+  - Always check Deno code changes using the custom `deno task check` command, which includes Deno lint, check and fmt.
+  - Stick to standard Deno built-in features as much as possible, and if a third-party dependency is required, use the required JSR package(s) and add them to the `imports` list in `deno.json`.
+  - If a Node package is required, add it to the `imports` list in `deno.json` with the value containing the standard `node:` prefix.
+- Rules for Go code (`*.go` and `go.mod`):
+  - Test all code changes by adding the `GOCACHE=/tmp/gocache ` prefix to all `go test` commands
 
 ## Agent Guidelines & Safety Rules
 
@@ -36,8 +37,9 @@ If any of the below CLI commands aren't available, stop processing and explain t
 
 Fetching information from any page on any of these websites is allowed and encouraged:
 
-- Deno documentation: https://docs.deno.com/
 - GitHub public code: https://raw.githubusercontent.com/
 - GitHub documentation: https://docs.github.com/
+- Go documentation: https://go.dev/doc/
+- Deno documentation: https://docs.deno.com/
 - Deno packages (JSR): https://jsr.io/
 - Node packages (NPM): https://www.npmjs.com/

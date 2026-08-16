@@ -3,17 +3,6 @@
   "preferPackageJson": false,
   "minimumDependencyAge": 14,
   "lock": true,
-  "deploy": {
-    "org": "murty",
-    "app": "app-personal-planner",
-    "install": "deno task install",
-    "build": "deno task build",
-    "runtime": {
-      "mode": "dynamic",
-      "entrypoint": "_fresh/server.js",
-      "args": ["--unstable-kv"]
-    }
-  },
   "imports": {
     "@/": "./src/",
     "@/server.tsx": "./src/server.tsx",

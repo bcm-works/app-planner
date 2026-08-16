@@ -27,6 +27,7 @@
 			"Fetch(https://raw.githubusercontent.com/*)",
 			"Fetch(https://www.npmjs.com/*)",
 			"Fetch(https://jsr.io/*)",
+			"Fetch(https://go.dev/doc/*)",
 			"Bash(cat*)",
 			"Bash(grep*)",
 			"Bash(head*)",

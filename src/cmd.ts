@@ -1,9 +1,11 @@
-import { Builder } from "@fresh/core/dev";
+// TODO: update this file to support the new backend tech stack
 
-const builder = new Builder({ serverEntry: "./src/server.tsx" });
+// import { Builder } from "@fresh/core/dev";
 
-if (Deno.args.includes("build")) {
-  await builder.build();
-} else {
-  await builder.listen(() => import("./server.tsx"));
-}
+// const builder = new Builder({ serverEntry: "./src/server.tsx" });
+
+// if (Deno.args.includes("build")) {
+//   await builder.build();
+// } else {
+//   await builder.listen(() => import("./server.tsx"));
+// }

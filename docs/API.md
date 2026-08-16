@@ -1,9 +1,8 @@
 # API Specification
 
-Base path: `/api`  
-All requests and responses use `Content-Type: application/json`.
-
----
+- Code location: `src/api`
+- Base HTTP request path: `/api`
+- All requests and responses use `Content-Type: application/json`
 
 ## Types
 
@@ -37,8 +36,6 @@ All requests and responses use `Content-Type: application/json`.
 { "error": "Human-readable message" }
 ```
 
----
-
 ## Endpoints
 
 ### Health
@@ -51,8 +48,6 @@ Returns server status.
 ```json
 { "status": "ok" }
 ```
-
----
 
 ### Tasks
 
@@ -86,8 +81,6 @@ Returns all active (non-deleted) tasks. Use query parameters to filter.
 ]
 ```
 
----
-
 #### `POST /api/tasks`
 
 Creates a new task.
@@ -113,8 +106,6 @@ Creates a new task.
 | `400`  | Body is invalid JSON.  |
 | `400`  | `title` is missing or blank. |
 
----
-
 #### `GET /api/tasks/:id`
 
 Returns a single active task by ID.
@@ -126,8 +117,6 @@ Returns a single active task by ID.
 | Status | Condition                                  |
 |--------|--------------------------------------------|
 | `404`  | Task not found or is soft-deleted.         |
-
----
 
 #### `PATCH /api/tasks/:id`
 
@@ -156,8 +145,6 @@ Passing an explicit `null` for `start_date`, `end_date`, `project_id`, or `owner
 | `400`  | Body is invalid JSON.                      |
 | `404`  | Task not found or is soft-deleted.         |
 
----
-
 #### `DELETE /api/tasks/:id`
 
 Soft-deletes a task by setting its `status` to `"deleted"`. The record is retained in storage.
@@ -172,8 +159,6 @@ Soft-deletes a task by setting its `status` to `"deleted"`. The record is retain
 | Status | Condition                                  |
 |--------|--------------------------------------------|
 | `404`  | Task not found or already deleted.         |
-
----
 
 ## Common Error Responses
 

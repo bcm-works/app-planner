@@ -9,9 +9,8 @@ A prototype personal planner app like Sunsama.
 - [docs/adrs](docs/adrs/) - Architecture Decision Record documents.
 - [docs/prompts](docs/prompts/) - Logs of AI prompts and results.
 - [docs/AI-USE.md](docs/AI-USE.md) - Policy for use of AI Code Generation tools.
-- [src/api](src/api/) - [Deno](https://deno.com/) backend and Deno KV integration.
+- [src/api](src/api/) - [Go](https://go.dev/) backend.
 - [src/app](src/app/) - [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
-- [src/server.tsx](src/server/server.tsx) - [Deno](https://deno.com/) server Deno Deploy entrypoint.
 
 ## Initial Setup
 
