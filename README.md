@@ -2,7 +2,7 @@
 
 A prototype personal planner app like Sunsama.
 
-## Directory Structure
+## Structure
 
 - [.claude](.claude/) - Project specific config for [Claude Code](https://claude.com/product/claude-code).
 - [.zed](.zed/) - Customised [Zed Editor](https://zed.dev/) project configuration.
@@ -12,13 +12,20 @@ A prototype personal planner app like Sunsama.
 - [src/api](src/api/) - [Go](https://go.dev/) backend.
 - [src/app](src/app/) - [Deno Fresh](https://usefresh.dev/) page components, layout, and shared UI.
 
-## Initial Setup
+## Local Setup
 
-1. Install the latest stable version of [Deno](https://deno.com/).
-2. Run `deno task setup` from a terminal in this directory.
-3. Update the Git Ignored file named `.env` with the relevant Deno Deploy database ID and access token.
+First install the required tools:
+
+- [Deno](https://deno.com/) (latest stable) - Could use my [dotfiles deno-setup script](https://github.com/bcm-works/dotfiles/blob/main/setup/dev/deno/deno-setup.sh).
+- [Go](https://go.dev/) (`1.26.6`) - Could use my [dotfiles go-setup script](https://github.com/bcm-works/dotfiles/blob/main/setup/dev/go/go-setup.sh).
+
+Run `deno task setup` from a terminal in this directory.
+
+Update the Git Ignored file named `.env` with the relevant Deno Deploy database ID and access token.
 
 ## Commands
+
+### App Frontend
 
 The main commands are:
 
