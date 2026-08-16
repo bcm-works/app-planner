@@ -17,6 +17,7 @@ Build out this solution publically, while continuing to store *all consequential
 Previous tech stack:
 
 - **Frontend App**: Deno Fresh, TypeScript
+- **Backend API**: Deno, TypeScript
 - **Database**: Deno KV
 - **Infrastructure**: Deno Deploy
 
