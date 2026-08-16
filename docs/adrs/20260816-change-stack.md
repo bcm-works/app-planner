@@ -16,8 +16,8 @@ Build out this solution publically, while continuing to store *all consequential
 
 Previous tech stack:
 
-- **Frontend App**: Deno Fresh, TypeScript
-- **Backend API**: Deno, TypeScript
+- **Frontend App**: Deno Fresh and TypeScript
+- **Backend API**: Deno and TypeScript
 - **Database**: Deno KV
 - **Infrastructure**: Deno Deploy
 
@@ -31,7 +31,7 @@ New tech stack:
 Changes needed:
 
 - Tooling updates via links to my [dotfiles dev scripts](https://github.com/bcm-works/dotfiles/tree/main/setup/dev)
-- Keep all Go code inside of `/src/backend`
+- Keep all Go code inside of `/src/api`
 - Use related previous tech solutions from [my site repo](https://github.com/bcm-works/site) as a starting point
 - Use `docs/API.md` as the technical specification for building out the new backend
 - Docs updates to support above changes
