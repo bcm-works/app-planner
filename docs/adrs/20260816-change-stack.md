@@ -14,16 +14,21 @@ Build out this solution publically, while continuing to store *all consequential
 
 ## Decision(s)
 
-- Tech stack change:
-  - Previous:
-		- **Frontend App**: Deno Fresh, TypeScript
-		- **Database**: Deno KV
-		- **Infrastructure**: Deno Deploy
-  - New:
-		- **Frontend App**: Deno Fresh and TypeScript
-		- **Backend API**: Go
-		- **Database**: SQLite stored on a persistent Docker Volume
-		- **Infrastructure**: Docker, GitHub Packages and Railway
+Previous tech stack:
+
+- **Frontend App**: Deno Fresh, TypeScript
+- **Database**: Deno KV
+- **Infrastructure**: Deno Deploy
+
+New tech stack:
+
+- **Frontend App**: Deno Fresh and TypeScript
+- **Backend API**: Go
+- **Database**: SQLite stored on a persistent Docker Volume
+- **Infrastructure**: Docker, GitHub Packages and Railway
+
+Changes needed:
+
 - Tooling updates via links to my [dotfiles dev scripts](https://github.com/bcm-works/dotfiles/tree/main/setup/dev)
 - Keep all Go code inside of `/src/backend`
 - Use related previous tech solutions from [my site repo](https://github.com/bcm-works/site) as a starting point
