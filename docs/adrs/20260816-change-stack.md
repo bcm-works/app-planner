@@ -30,7 +30,7 @@ New tech stack:
 
 Changes needed:
 
-- Tooling updates via links to my [dotfiles dev scripts](https://github.com/bcm-works/dotfiles/tree/main/setup/dev)
+- Tooling updates via links to my [dotfiles dev scripts](https://github.com/bcm-works/dotfiles/tree/main/dev)
 - Keep all Go code inside of `/src/api`
 - Use related previous tech solutions from [my site repo](https://github.com/bcm-works/site) as a starting point
 - Use `docs/API.md` as the technical specification for building out the new backend
