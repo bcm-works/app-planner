@@ -40,6 +40,7 @@ func main() {
 		writeError(w, http.StatusMethodNotAllowed, "method not allowed")
 	})
 
+	r.Get("/", ApiHealth)
 	r.Get("/api/health", ApiHealth)
 
 	r.Get("/api/tasks", listTasks)
