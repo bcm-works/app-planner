@@ -1,7 +1,9 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
@@ -22,28 +24,16 @@ func writeError(w http.ResponseWriter, status int, msg string) {
 // GET /api/tasks
 func listTasks(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-	includeDeleted := q.Get("include_deleted") == "true"
-	filterOwner := q.Get("owner_id")
-	filterProject := q.Get("project_id")
-
-	store.mu.RLock()
-	defer store.mu.RUnlock()
-
-	result := make([]*Task, 0, len(store.tasks))
-	for _, t := range store.tasks {
-		if !includeDeleted && t.Status == TaskStatusDeleted {
-			continue
-		}
-		if filterOwner != "" && (t.OwnerID == nil || *t.OwnerID != filterOwner) {
-			continue
-		}
-		if filterProject != "" && (t.ProjectID == nil || *t.ProjectID != filterProject) {
-			continue
-		}
-		result = append(result, t)
+	tasks, err := store.List(
+		q.Get("include_deleted") == "true",
+		q.Get("owner_id"),
+		q.Get("project_id"),
+	)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to list tasks")
+		return
 	}
-
-	writeJSON(w, http.StatusOK, result)
+	writeJSON(w, http.StatusOK, tasks)
 }
 
 // POST /api/tasks
@@ -93,9 +83,10 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 		UpdatedDate: now,
 	}
 
-	store.mu.Lock()
-	store.tasks[task.ID] = task
-	store.mu.Unlock()
+	if err := store.Create(task); err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to create task")
+		return
+	}
 
 	writeJSON(w, http.StatusCreated, task)
 }
@@ -104,12 +95,13 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 func getTask(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
-	store.mu.RLock()
-	task, ok := store.tasks[id]
-	store.mu.RUnlock()
-
-	if !ok || task.Status == TaskStatusDeleted {
+	task, err := store.Get(id)
+	if errors.Is(err, sql.ErrNoRows) || (err == nil && task.Status == TaskStatusDeleted) {
 		writeError(w, http.StatusNotFound, "task not found")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to get task")
 		return
 	}
 
@@ -126,12 +118,13 @@ func patchTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	store.mu.Lock()
-	defer store.mu.Unlock()
-
-	task, ok := store.tasks[id]
-	if !ok || task.Status == TaskStatusDeleted {
+	task, err := store.Get(id)
+	if errors.Is(err, sql.ErrNoRows) || (err == nil && task.Status == TaskStatusDeleted) {
 		writeError(w, http.StatusNotFound, "task not found")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to get task")
 		return
 	}
 
@@ -181,6 +174,11 @@ func patchTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	task.UpdatedDate = time.Now().UTC()
+	if err := store.Update(task); err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to update task")
+		return
+	}
+
 	writeJSON(w, http.StatusOK, task)
 }
 
@@ -201,17 +199,22 @@ func setNullableField(t *Task, field string, val *string) {
 func deleteTask(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
-	store.mu.Lock()
-	defer store.mu.Unlock()
-
-	task, ok := store.tasks[id]
-	if !ok || task.Status == TaskStatusDeleted {
+	task, err := store.Get(id)
+	if errors.Is(err, sql.ErrNoRows) || (err == nil && task.Status == TaskStatusDeleted) {
 		writeError(w, http.StatusNotFound, "task not found")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to get task")
 		return
 	}
 
 	task.Status = TaskStatusDeleted
 	task.UpdatedDate = time.Now().UTC()
+	if err := store.Update(task); err != nil {
+		writeError(w, http.StatusInternalServerError, "failed to delete task")
+		return
+	}
 
 	writeJSON(w, http.StatusOK, map[string]bool{"success": true})
 }

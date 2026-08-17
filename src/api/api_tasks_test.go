@@ -5,10 +5,20 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/go-chi/chi/v5"
 )
+
+func TestMain(m *testing.M) {
+	db, err := openDB(":memory:")
+	if err != nil {
+		panic("failed to open test db: " + err.Error())
+	}
+	store = &TaskStore{db: db}
+	os.Exit(m.Run())
+}
 
 func setupRouter() *chi.Mux {
 	r := chi.NewRouter()
@@ -28,9 +38,7 @@ func setupRouter() *chi.Mux {
 }
 
 func resetStore() {
-	store.mu.Lock()
-	store.tasks = make(map[string]*Task)
-	store.mu.Unlock()
+	store.db.Exec("DELETE FROM tasks")
 }
 
 func TestHealth(t *testing.T) {

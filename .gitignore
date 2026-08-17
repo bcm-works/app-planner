@@ -12,5 +12,8 @@ _fresh
 
 coverage
 
+data/*
+!data/.gitkeep
+
 $RECYCLE.BIN/
 .DS_Store

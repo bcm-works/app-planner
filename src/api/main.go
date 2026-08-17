@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -10,6 +11,14 @@ import (
 )
 
 func main() {
+	dbPath := EnvGet("DB_PATH", "../../data/database.sqlite.db")
+	db, err := openDB(dbPath)
+	if err != nil {
+		log.Fatalf("failed to open database: %v", err)
+	}
+	defer db.Close()
+	store = &TaskStore{db: db}
+
 	r := chi.NewRouter()
 
 	r.Use(middleware.Logger)
