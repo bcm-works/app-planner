@@ -10,35 +10,35 @@ import (
 )
 
 func main() {
-	// Initialise the router
 	r := chi.NewRouter()
 
-	// Setup the logger
 	r.Use(middleware.Logger)
-
-	// Only allow certain content types
 	r.Use(middleware.AllowContentType("application/json", "text/xml"))
 
-	// Configure cross origin resource sharing (CORS)
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"http://localhost", "https://bcm.works", "https://murty.au", "https://bcm.id.au"},
-		AllowedMethods:   []string{"GET", "OPTIONS"},
+		AllowedMethods:   []string{"GET", "POST", "PATCH", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
 
-	// Endpoint: /api/health - Health check
-	r.Get("/api/health", ApiHealth)
-
-	// Example of a route with a dynamic section
-	r.Get("/item/{slug}", func(w http.ResponseWriter, r *http.Request) {
-		slugParam := chi.URLParam(r, "slug")
-		w.Write([]byte("Item request: " + slugParam))
+	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
+		writeError(w, http.StatusNotFound, "route not found")
+	})
+	r.MethodNotAllowed(func(w http.ResponseWriter, r *http.Request) {
+		writeError(w, http.StatusMethodNotAllowed, "method not allowed")
 	})
 
-	// Start the web server
+	r.Get("/api/health", ApiHealth)
+
+	r.Get("/api/tasks", listTasks)
+	r.Post("/api/tasks", createTask)
+	r.Get("/api/tasks/{id}", getTask)
+	r.Patch("/api/tasks/{id}", patchTask)
+	r.Delete("/api/tasks/{id}", deleteTask)
+
 	fmt.Println("Server starting at http://localhost:3000")
 	http.ListenAndServe(":3000", r)
 }
