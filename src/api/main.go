@@ -11,8 +11,8 @@ import (
 )
 
 func main() {
-	dbPath := EnvGet("DB_PATH", "../../data/database.sqlite.db")
-	db, err := openDB(dbPath)
+	dbURL := EnvGet("DB_URL", "postgres://****:****@localhost:5432/planner")
+	db, err := openDB(dbURL)
 	if err != nil {
 		log.Fatalf("failed to open database: %v", err)
 	}

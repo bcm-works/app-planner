@@ -8,19 +8,21 @@ import (
 	"sort"
 	"strings"
 
-	_ "modernc.org/sqlite"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 //go:embed migrations/*.sql
 var migrationsFS embed.FS
 
-func openDB(path string) (*sql.DB, error) {
-	db, err := sql.Open("sqlite", path)
+func openDB(dsn string) (*sql.DB, error) {
+	db, err := sql.Open("pgx", dsn)
 	if err != nil {
 		return nil, fmt.Errorf("open db: %w", err)
 	}
-	// SQLite supports one writer at a time; limit to a single connection.
-	db.SetMaxOpenConns(1)
+	if err := db.Ping(); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("ping db: %w", err)
+	}
 	if err := runMigrations(db); err != nil {
 		db.Close()
 		return nil, fmt.Errorf("migrations: %w", err)
@@ -31,7 +33,7 @@ func openDB(path string) (*sql.DB, error) {
 func runMigrations(db *sql.DB) error {
 	if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS migrations (
 		name       TEXT PRIMARY KEY,
-		applied_at TEXT NOT NULL
+		applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 	)`); err != nil {
 		return err
 	}
@@ -49,7 +51,7 @@ func runMigrations(db *sql.DB) error {
 			continue
 		}
 		var count int
-		db.QueryRow(`SELECT COUNT(*) FROM migrations WHERE name = ?`, entry.Name()).Scan(&count)
+		db.QueryRow(`SELECT COUNT(*) FROM migrations WHERE name = $1`, entry.Name()).Scan(&count)
 		if count > 0 {
 			continue
 		}
@@ -61,7 +63,7 @@ func runMigrations(db *sql.DB) error {
 			return fmt.Errorf("apply %s: %w", entry.Name(), err)
 		}
 		if _, err := db.Exec(
-			`INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))`,
+			`INSERT INTO migrations (name) VALUES ($1)`,
 			entry.Name(),
 		); err != nil {
 			return err

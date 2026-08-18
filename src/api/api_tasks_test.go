@@ -12,7 +12,12 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	db, err := openDB(":memory:")
+	dsn := os.Getenv("TEST_DB_URL")
+	if dsn == "" {
+		// Skip all DB-backed tests when no PostgreSQL instance is available.
+		os.Exit(0)
+	}
+	db, err := openDB(dsn)
 	if err != nil {
 		panic("failed to open test db: " + err.Error())
 	}

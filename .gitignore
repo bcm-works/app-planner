@@ -13,6 +13,7 @@ _fresh
 coverage
 
 data/*
+data/**
 !data/.gitkeep
 
 $RECYCLE.BIN/

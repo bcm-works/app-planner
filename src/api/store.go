@@ -56,18 +56,22 @@ const taskColumns = `id, title, description, start_date, end_date, status, proje
 func (s *TaskStore) List(includeDeleted bool, ownerID, projectID string) ([]*Task, error) {
 	query := `SELECT ` + taskColumns + ` FROM tasks WHERE 1=1`
 	args := []any{}
+	argN := 1
 	if !includeDeleted {
 		query += ` AND status != 'deleted'`
 	}
 	if ownerID != "" {
-		query += ` AND owner_id = ?`
+		query += fmt.Sprintf(` AND owner_id = $%d`, argN)
 		args = append(args, ownerID)
+		argN++
 	}
 	if projectID != "" {
-		query += ` AND project_id = ?`
+		query += fmt.Sprintf(` AND project_id = $%d`, argN)
 		args = append(args, projectID)
+		argN++
 	}
 	query += ` ORDER BY created_date DESC`
+	_ = argN
 
 	rows, err := s.db.Query(query, args...)
 	if err != nil {
@@ -88,25 +92,25 @@ func (s *TaskStore) List(includeDeleted bool, ownerID, projectID string) ([]*Tas
 
 func (s *TaskStore) Create(task *Task) error {
 	_, err := s.db.Exec(
-		`INSERT INTO tasks (`+taskColumns+`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		`INSERT INTO tasks (`+taskColumns+`) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 		task.ID, task.Title, task.Description, task.StartDate, task.EndDate,
 		string(task.Status), task.ProjectID, task.OwnerID,
-		task.CreatedDate.Format(time.RFC3339), task.UpdatedDate.Format(time.RFC3339),
+		task.CreatedDate, task.UpdatedDate,
 	)
 	return err
 }
 
 func (s *TaskStore) Get(id string) (*Task, error) {
-	row := s.db.QueryRow(`SELECT `+taskColumns+` FROM tasks WHERE id = ?`, id)
+	row := s.db.QueryRow(`SELECT `+taskColumns+` FROM tasks WHERE id = $1`, id)
 	return scanTask(row)
 }
 
 func (s *TaskStore) Update(task *Task) error {
 	_, err := s.db.Exec(
-		`UPDATE tasks SET title=?, description=?, start_date=?, end_date=?, status=?, project_id=?, owner_id=?, updated_date=? WHERE id=?`,
+		`UPDATE tasks SET title=$1, description=$2, start_date=$3, end_date=$4, status=$5, project_id=$6, owner_id=$7, updated_date=$8 WHERE id=$9`,
 		task.Title, task.Description, task.StartDate, task.EndDate,
 		string(task.Status), task.ProjectID, task.OwnerID,
-		task.UpdatedDate.Format(time.RFC3339), task.ID,
+		task.UpdatedDate, task.ID,
 	)
 	return err
 }
@@ -117,22 +121,15 @@ type scanner interface {
 
 func scanTask(s scanner) (*Task, error) {
 	var t Task
-	var status, createdStr, updatedStr string
+	var status string
 	if err := s.Scan(
 		&t.ID, &t.Title, &t.Description,
 		&t.StartDate, &t.EndDate,
 		&status, &t.ProjectID, &t.OwnerID,
-		&createdStr, &updatedStr,
+		&t.CreatedDate, &t.UpdatedDate,
 	); err != nil {
 		return nil, err
 	}
 	t.Status = TaskStatus(status)
-	var err error
-	if t.CreatedDate, err = time.Parse(time.RFC3339, createdStr); err != nil {
-		return nil, fmt.Errorf("parse created_date: %w", err)
-	}
-	if t.UpdatedDate, err = time.Parse(time.RFC3339, updatedStr); err != nil {
-		return nil, fmt.Errorf("parse updated_date: %w", err)
-	}
 	return &t, nil
 }
