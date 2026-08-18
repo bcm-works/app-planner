@@ -21,15 +21,11 @@ First install the required tools:
 
 Run `deno task setup` from a terminal in this directory.
 
-Update the Git Ignored file named `.env` with the relevant Deno Deploy database ID and access token.
+Then edit the Git Ignored file named `.env` with the relevant values.
 
 *Optional:* Install AI tools via my [dotfiles ai-setup script](https://github.com/bcm-works/dotfiles/blob/main/ai/ai-install.sh).
 
 ## Commands
-
-### App Frontend
-
-The main commands are:
 
 - `deno task setup` - Initial environment setup.
 - `deno task update` - Update dependencies.
@@ -37,9 +33,7 @@ The main commands are:
 - `deno task start` - Start all services.
 - `deno task start-db` - Start the database.
 
-### API Backend
-
-#### Adding a new database migration
+### Adding a new database migration
 
 1. Create a new file in `src/api/migrations/` using the next sequential prefix, e.g. `0002_add_projects.sql`.
 2. Write standard PostgreSQL SQL for the migration.
