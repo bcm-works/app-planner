@@ -25,7 +25,9 @@ TEST_APP_DB_URL=postgres://****:****@localhost:5432/planner \
 
 echo "Running App checks"
 cd "$REPO"
-deno task check
+deno lint
+deno fmt
+deno check
 
 echo "Running App tests"
 deno test --quiet --allow-all --unstable-kv --clean --coverage=coverage --coverage-threshold=85 src

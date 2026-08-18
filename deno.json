@@ -29,12 +29,8 @@
       "description": "Initial environment setup.",
       "command": "bash ./bin/setup.sh"
     },
-    "check": {
-      "description": "Run Deno code check tools.",
-      "command": "deno lint && deno fmt && deno check"
-    },
     "test": {
-      "description": "Run tests",
+      "description": "Run tests and code checks.",
       "command": "bash ./bin/test.sh",
     },
     "start": {
