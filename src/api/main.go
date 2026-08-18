@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	dbURL := EnvGet("DB_URL", "postgres://****:****@localhost:5432/planner")
+	dbURL := EnvGet("APP_DB_URL", "postgres://****:****@localhost:5432/planner")
 	db, err := openDB(dbURL)
 	if err != nil {
 		log.Fatalf("failed to open database: %v", err)

@@ -18,10 +18,10 @@ What changed
 | `go.mod` / `go.sum` | Removed `modernc.org/sqlite` (and all indirect deps); added `github.com/jackc/pgx/v5 v5.10.0` |
 | `db.go` | Driver swapped to `pgx/stdlib`; `openDB` now takes a DSN string and pings on open; migration table uses `TIMESTAMPTZ`; placeholders updated to `$1` |
 | `store.go` | All `?` placeholders → `$N`; `created_date`/`updated_date` now passed/scanned as native `time.Time` (no more manual RFC3339 string formatting); dynamic filter query tracks arg index |
-| `main.go` | `DB_PATH` env var → `DB_URL` |
+| `main.go` | `DB_PATH` env var → `APP_DB_URL` |
 | `.sample.env` | Updated to show a PostgreSQL DSN |
 | `migrations/0001_initial.sql` | `created_date`/`updated_date` columns changed from `TEXT` to `TIMESTAMPTZ` |
-| `api_tasks_test.go` | Uses `TEST_DB_URL` env var; exits cleanly (skipping tests) when it's absent |
+| `api_tasks_test.go` | Uses `TEST_APP_DB_URL` env var; exits cleanly (skipping tests) when it's absent |
 
 **Project root**
 
@@ -30,7 +30,7 @@ What changed
 | `docker-compose.yml` | New — starts `postgres:17`, mounts `./data/postgres` for persistence, exposes port 5432 |
 | `data/postgres/.gitkeep` | New — tracks the volume directory in git |
 | `.gitignore` | Added rules to track `data/postgres/` dir but ignore its contents |
-| `docs/DATABASE.md` | Fully rewritten for PostgreSQL — Docker Compose startup, `psql` inspection, `TEST_DB_URL` test instructions, migration workflow |
+| `docs/DATABASE.md` | Fully rewritten for PostgreSQL — Docker Compose startup, `psql` inspection, `TEST_APP_DB_URL` test instructions, migration workflow |
 
 **To run locally**
 
@@ -42,5 +42,5 @@ docker compose up -d db
 cd src/api && go run .
 
 # Run tests against live DB
-TEST_DB_URL=postgres://****:****@localhost:5432/planner
+TEST_APP_DB_URL=postgres://****:****@localhost:5432/planner
 ```

@@ -36,3 +36,13 @@ The main commands are:
 - `deno task test` - Run all tests and show test coverage.
 - `deno task check` - Run Deno code check tools.
 - `deno task list` - List all commands.
+
+### API Backend
+
+#### Adding a new database migration
+
+1. Create a new file in `src/api/migrations/` using the next sequential prefix, e.g. `0002_add_projects.sql`.
+2. Write standard PostgreSQL SQL for the migration.
+3. Start the API — the migration is applied automatically and recorded in `migrations`.
+
+Migration filenames must end in `.sql` and are applied in alphabetical order. Each migration is applied exactly once.
