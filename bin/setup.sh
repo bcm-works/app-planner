@@ -12,7 +12,7 @@ mkdir -p "$REPO/data/gocache"
 
 [ ! -f "$REPO/.env" ] && cp "$REPO/.env.example" "$REPO/.env"
 
-deno task install
+deno install --quiet
 
 cd "$REPO/src/api"
 go mod tidy

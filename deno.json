@@ -13,21 +13,13 @@
     "preact": "npm:preact@^10.29.8"
   },
   "tasks": {
-    "install": {
-      "description": "Install Deno dependencies.",
-      "command": "deno install --quiet"
-    },
-    "build": {
-      "description": "Build optimised assets for production.",
-      "command": "echo 'ERROR not implemented'"
-    },
-    "deps": {
-      "description": "Update Deno dependencies.",
-      "command": "deno outdated --update --compatible"
-    },
     "setup": {
-      "description": "Initial environment setup.",
+      "description": "Initial setup.",
       "command": "bash ./bin/setup.sh"
+    },
+    "update": {
+      "description": "Update dependencies.",
+      "command": "bash ./bin/update.sh"
     },
     "test": {
       "description": "Run tests and code checks.",
@@ -36,10 +28,6 @@
     "start": {
       "description": "Start the server.",
       "command": "bash ./bin/start.sh"
-    },
-    "list": {
-      "description": "List all available commands.",
-      "command": "deno task"
     }
   },
   "compilerOptions": {

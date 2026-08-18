@@ -32,9 +32,9 @@ Update the Git Ignored file named `.env` with the relevant Deno Deploy database 
 The main commands are:
 
 - `deno task setup` - Initial environment setup.
-- `deno task serve` - Start the server.
+- `deno task update` - Update dependencies.
 - `deno task test` - Run tests and code checks.
-- `deno task list` - List all commands.
+- `deno task start` - Start the server.
 
 ### API Backend
 
