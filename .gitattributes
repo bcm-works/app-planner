@@ -1,0 +1,21 @@
+# Treat Go files as binaries, ignoring default Git line-ending changes
+
+*.go -text diff=golang
+
+# GitHub repo linguist configuration
+
+.claude/** -linguist-detectable
+.zed/** -linguist-detectable
+coverage/** -linguist-detectable
+data/** -linguist-detectable
+.* -linguist-detectable
+.*.* -linguist-detectable
+
+deno.lock linguist-generated
+**/go.sum linguist-generated
+
+docs/** linguist-documentation
+
+*.js linguist-language=javascript
+*.ts linguist-language=typescript
+*.tsx linguist-language=typescript
