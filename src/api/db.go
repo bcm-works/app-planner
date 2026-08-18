@@ -29,7 +29,7 @@ func openDB(path string) (*sql.DB, error) {
 }
 
 func runMigrations(db *sql.DB) error {
-	if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS schema_migrations (
+	if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS migrations (
 		name       TEXT PRIMARY KEY,
 		applied_at TEXT NOT NULL
 	)`); err != nil {
@@ -49,7 +49,7 @@ func runMigrations(db *sql.DB) error {
 			continue
 		}
 		var count int
-		db.QueryRow(`SELECT COUNT(*) FROM schema_migrations WHERE name = ?`, entry.Name()).Scan(&count)
+		db.QueryRow(`SELECT COUNT(*) FROM migrations WHERE name = ?`, entry.Name()).Scan(&count)
 		if count > 0 {
 			continue
 		}
@@ -61,7 +61,7 @@ func runMigrations(db *sql.DB) error {
 			return fmt.Errorf("apply %s: %w", entry.Name(), err)
 		}
 		if _, err := db.Exec(
-			`INSERT INTO schema_migrations (name, applied_at) VALUES (?, datetime('now'))`,
+			`INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))`,
 			entry.Name(),
 		); err != nil {
 			return err
