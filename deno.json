@@ -14,38 +14,32 @@
   },
   "tasks": {
     "install": {
-      "description": "Install third-party dependencies.",
+      "description": "Install Deno dependencies.",
       "command": "deno install --quiet"
     },
     "build": {
       "description": "Build optimised assets for production.",
-      "command": "deno run --allow-all src/cmd.ts build",
-      "dependencies": ["install"]
-    },
-    "update": {
-      "description": "Update third-party dependencies.",
-      "command": "deno outdated --update --compatible"
+      "command": "echo 'ERROR not implemented'"
     },
     "deps": {
-      "description": "Update all dependencies and commit the results.",
-      "command": "deno task update && git add deno.json deno.lock && git commit -m \"Update third-party dependencies\" || true"
+      "description": "Update Deno dependencies.",
+      "command": "deno outdated --update --compatible"
     },
     "setup": {
       "description": "Initial environment setup.",
-      "command": "deno task install && [ ! -f .env ] && cp .sample.env .env"
+      "command": "bash ./bin/setup.sh"
     },
     "check": {
       "description": "Run Deno code check tools.",
       "command": "deno lint && deno fmt && deno check"
     },
     "test": {
-      "description": "Run all tests and show test coverage",
-      "command": "deno test --quiet --allow-all --unstable-kv --clean --coverage=coverage --coverage-threshold=85 src",
-      "dependencies": ["install"]
+      "description": "Run tests",
+      "command": "bash ./bin/test.sh",
     },
-    "serve": {
-      "description": "Start the web server.",
-      "command": "deno run --allow-all --env-file=.env --unstable-kv src/server.tsx"
+    "start": {
+      "description": "Start the server.",
+      "command": "bash ./bin/start.sh"
     },
     "list": {
       "description": "List all available commands.",
