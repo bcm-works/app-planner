@@ -34,7 +34,8 @@ The main commands are:
 - `deno task setup` - Initial environment setup.
 - `deno task update` - Update dependencies.
 - `deno task test` - Run tests and code checks.
-- `deno task start` - Start the server.
+- `deno task start` - Start all services.
+- `deno task start-db` - Start the database.
 
 ### API Backend
 

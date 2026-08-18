@@ -23,11 +23,15 @@
     },
     "test": {
       "description": "Run tests and code checks.",
-      "command": "bash ./bin/test.sh",
+      "command": "bash ./bin/test.sh"
     },
     "start": {
-      "description": "Start the server.",
+      "description": "Start all services.",
       "command": "bash ./bin/start.sh"
+    },
+    "start-db": {
+      "description": "Start the database.",
+      "command": "bash ./bin/start-db.sh"
     }
   },
   "compilerOptions": {

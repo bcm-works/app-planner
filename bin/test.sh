@@ -7,27 +7,25 @@
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 
-bash "$REPO/bin/setup.sh"
-
 source "$REPO/.env"
 
-echo "Starting the database"
-cd "$REPO"
-docker compose up -d db
+echo "Database - Start"
+deno task start-db
 
-# TODO: update the API test command
-
-echo "Running API tests"
+echo "API - Test"
 cd "$REPO/src/api"
-TEST_APP_DB_URL=postgres://****:****@localhost:5432/planner \
+TEST_APP_DB_URL="$TEST_APP_DB_URL" \
 	GOCACHE="$REPO/data/gocache" \
 	go test ./...
 
-echo "Running App checks"
+echo "App - Check"
 cd "$REPO"
 deno lint
 deno fmt
 deno check
 
-echo "Running App tests"
-deno test --quiet --allow-all --unstable-kv --clean --coverage=coverage --coverage-threshold=85 src
+echo "App - Test"
+deno test --quiet --allow-all \
+	--no-check --clean \
+	--coverage=coverage --coverage-threshold=85 \
+	src

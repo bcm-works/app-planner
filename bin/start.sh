@@ -13,13 +13,7 @@ echo "Run - Setup"
 deno task setup
 
 echo "Database - Start"
-docker compose down || true > /dev/null 2>&1
-docker compose up \
-	--pull always \
-	--quiet-pull \
-	--build \
-	--yes \
-	--detach
+deno task start-db
 
 cd "$REPO/src/api"
 
