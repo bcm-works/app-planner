@@ -1,4 +1,4 @@
-import type { Task } from "@/api/types.ts";
+import type { Task } from "@/app/types.ts";
 import TaskForm from "@/app/components/TaskForm.tsx";
 
 interface Props {

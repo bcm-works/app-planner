@@ -1,4 +1,4 @@
-import type { Task } from "@/api/types.ts";
+import type { Task } from "@/app/types.ts";
 import Layout from "@/app/components/Layout.tsx";
 import TaskForm from "@/app/components/TaskForm.tsx";
 import TaskItem from "@/app/components/TaskItem.tsx";

@@ -1,4 +1,4 @@
-import type { Task } from "@/api/types.ts";
+import type { Task } from "@/app/types.ts";
 
 const STATUSES = ["pending", "in_progress", "completed"] as const;
 
