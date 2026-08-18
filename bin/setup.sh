@@ -6,11 +6,14 @@
 #
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
+ENV="$REPO/.env"
 
-mkdir -p "$REPO/data/postgres"
+[ ! -f "$ENV" ] && cp "$REPO/.env.example" "$ENV"
+
+source "$ENV"
+
+mkdir -p "$REPO/$APP_DB_DIR"
 mkdir -p "$REPO/data/gocache"
-
-[ ! -f "$REPO/.env" ] && cp "$REPO/.env.example" "$REPO/.env"
 
 deno install --quiet
 

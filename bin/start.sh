@@ -6,27 +6,30 @@
 #
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
+
 cd "$REPO"
 
-echo "Starting the database"
-docker compose up -d db
+echo "Run - Setup"
+deno task setup
 
-echo "API - Install"
+echo "Database - Start"
+docker compose down || true > /dev/null 2>&1
+docker compose up \
+	--pull always \
+	--quiet-pull \
+	--build \
+	--yes \
+	--detach
+
 cd "$REPO/src/api"
-go mod tidy
 
 echo "API - Start"
 go run .
 
-echo "App - Install and build"
-cd "$REPO"
-deno task install
-
+# TODO: update the app start command
 # TODO: fix the app build command
 
-deno task build
-
-# TODO: update the app start command
-
 echo "App - Start"
+# cd "$REPO"
+# deno task build
 echo 'ERROR not implemented'

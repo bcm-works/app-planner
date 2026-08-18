@@ -24,7 +24,7 @@ If any of the below CLI commands aren't available, stop processing and explain t
   - Stick to standard Deno built-in features as much as possible, and if a third-party dependency is required, use the required JSR package(s) and add them to the `imports` list in `deno.json`.
   - If a Node package is required, add it to the `imports` list in `deno.json` with the value containing the standard `node:` prefix.
 - Rules for Go code (`*.go` and `go.mod`):
-  - Test all code changes by adding the `GOCACHE=/tmp/gocache ` prefix to all `go test` commands
+  - Test all code changes by adding the `GOCACHE=data/gocache ` prefix to all `go test` commands
 
 ## Agent Guidelines & Safety Rules
 

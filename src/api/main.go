@@ -11,13 +11,23 @@ import (
 )
 
 func main() {
-	dbURL := EnvGet("APP_DB_URL", "postgres://****:****@localhost:5432/planner")
+	dbURL := EnvGet("APP_DB_URL", "")
+	if dbURL == "" {
+		log.Fatal("Error - env var APP_DB_URL is not set")
+	}
+
 	db, err := openDB(dbURL)
 	if err != nil {
-		log.Fatalf("failed to open database: %v", err)
+		log.Fatalf("Error - failed to open database: %v", err)
 	}
+
 	defer db.Close()
 	store = &TaskStore{db: db}
+
+	apiPort := EnvGet("APP_API_PORT", "3333")
+	if apiPort == "" {
+		log.Fatal("Error - env var APP_API_PORT is not set")
+	}
 
 	r := chi.NewRouter()
 
@@ -49,6 +59,6 @@ func main() {
 	r.Patch("/api/tasks/{id}", patchTask)
 	r.Delete("/api/tasks/{id}", deleteTask)
 
-	fmt.Println("Server starting at http://localhost:3000")
-	http.ListenAndServe(":3000", r)
+	fmt.Println("API starting - http://localhost:" + apiPort)
+	http.ListenAndServe(":"+apiPort, r)
 }

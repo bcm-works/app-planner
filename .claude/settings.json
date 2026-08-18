@@ -40,7 +40,9 @@
 			"Bash(deno test *)",
 			"Bash(deno info *)",
 			"Bash(deno install *)",
-			"Bash(deno cache *)"
+			"Bash(deno cache *)",
+			"Bash(go test*)",
+			"Bash(GOCACHE=data/gocache go test*)"
 		],
 		"deny": [
 			"Read(.env)",

@@ -12,8 +12,8 @@ func EnvGet(varName string, defaultValue ...string) string {
 	// Get the system env var value for this var name
 	envValue := os.Getenv(varName)
 
-	// Load the env vars from the file ".env"
-	env, err := godotenv.Read(".env")
+	// Load the env vars from the env file
+	env, err := godotenv.Read("../../.env")
 
 	// If the env file was loaded successfully, use that variable's value
 	if err == nil {
