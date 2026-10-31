@@ -3,7 +3,7 @@ module github.com/bcm-works/app-planner/src/api/v2
 go 1.26.6
 
 require (
-	github.com/go-chi/chi/v5 v5.3.1 // direct
+	github.com/go-chi/chi/v5 v5.4.0 // direct
 	github.com/go-chi/cors v1.2.2 // direct
 )
 
